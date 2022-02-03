@@ -1,5 +1,5 @@
 :root {
-    --accent-color: #F00000;
+    --accent-color: #CC0000;
 }
 
 html, body {
@@ -36,7 +36,7 @@ html, body {
 /* TEXT */
 
 h1, h2, h3, h4,
-li, p, a, button, strong {
+li, p, a, button, strong, input {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     text-decoration: none;
@@ -48,11 +48,11 @@ h1 {
 }
 
 h2 {
-    font-size: 4vh;
+    font-size: 3vh;
 }
 
 h3 {
-    font-size: 3vmin;
+    font-size: 2.5vmin;
 }
 
 li {
@@ -72,4 +72,61 @@ li {
 
 .fg-accent {
     color: var(--accent-color);
+}
+
+
+/* HOME */
+.intro {
+    background-color: var(--accent-color);
+    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23555555' fill-opacity='0.7' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+    padding: 8vw 8vw 0 8vw;
+}
+
+.intro > * {
+    color: white;
+}
+
+.subtitle {
+    text-align: center;
+    margin: 0 8vw 4vh 8vw;
+}
+
+.intro input {
+    color: gray;
+    width: 60vw;
+    font-size: 3vh;
+    border: none;
+    border-radius: .5vw;
+    padding: 1vw;
+    margin-bottom: 8vh;
+}
+
+.filter-button {
+    justify-content: space-between;
+    text-align: center;
+    width: 100vw;
+}
+
+.filter-button h2 {
+    width: 10vw;
+}
+
+.filter-button h2:hover {
+    cursor: pointer;
+    color: black;
+}
+
+.filter-space {
+    width: 35vw;
+    height: 0;
+    border-bottom: 2rem solid white;
+}
+
+#filter-space-left {
+    border-right: 4vw solid transparent;
+    border-radius: 0 0 0 0;
+}
+
+#filter-space-right {
+    border-left: 4vw solid transparent;
 }

@@ -10,8 +10,27 @@
     <link href="app.css" rel="stylesheet">
     <title>API Fetching</title>
 </head>
-<body>
-    <h1>Test</h1>
+<body class="home">
+    <main class="center column">
+        <div class="intro center column">
+            <h1>Welcome to the Pokédex!</h1>
+            <h2 class="subtitle">This is the hub of all Pokemon! Enter the name or number of the Pokemon you are looking for or use the Pokemon type filter below the search bar.</h2>
+            <input id="search-bar" type="text" placeholder="Search...">
+
+            <div class="filter"></div>
+
+            <div class="filter-button row">
+                <rect id="filter-space-left" class="filter-space"></rect>
+                <h2>Filter</h2>
+                <rect id="filter-space-right" class="filter-space"></rect>
+            </div>
+        </div>
+
+        <div class="list">
+
+        </div>
+    </main>
+
     <script src="app.js"></script>
 </body>
 </html>

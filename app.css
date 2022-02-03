@@ -1,0 +1,75 @@
+:root {
+    --accent-color: #F00000;
+}
+
+html, body {
+    margin: 0;
+}
+
+
+/* FLEX */
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.center {
+    justify-content: center;
+    align-items: center;
+}
+
+.start {
+    align-self: flex-start;
+}
+
+.end {
+    align-self: flex-end;
+}
+
+
+/* TEXT */
+
+h1, h2, h3, h4,
+li, p, a, button, strong {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    text-decoration: none;
+    color: inherit;
+}
+
+h1 {
+    font-size: 5.9vw;
+}
+
+h2 {
+    font-size: 4vh;
+}
+
+h3 {
+    font-size: 3vmin;
+}
+
+li {
+    list-style: none;
+}
+
+
+/* COLORS */
+
+.fg-white {
+    color: white;
+}
+
+.fg-black {
+    color: black;
+}
+
+.fg-accent {
+    color: var(--accent-color);
+}

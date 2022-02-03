@@ -10,19 +10,41 @@
     <link href="app.css" rel="stylesheet">
     <title>API Fetching</title>
 </head>
+
 <body class="home">
     <main class="center column">
-        <div class="intro center column">
-            <h1>Welcome to the Pokédex!</h1>
-            <h2 class="subtitle">This is the hub of all Pokemon! Enter the name or number of the Pokemon you are looking for or use the Pokemon type filter below the search bar.</h2>
-            <input id="search-bar" type="text" placeholder="Search...">
+        <div class="intro column center">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 800 800" style="enable-background:new 0 0 800 800;" xml:space="preserve">
+                <path d="M509.71,425h201.8C698.78,585.9,564.18,712.5,400,712.5S101.22,585.9,88.49,425h201.8c11.37,50.1,56.17,87.5,109.71,87.5
+                    S498.34,475.1,509.71,425z"/>
+                <path d="M290.29,375H88.49C101.22,214.1,235.82,87.5,400,87.5S698.78,214.1,711.51,375h-201.8c-11.37-50.1-56.17-87.5-109.71-87.5
+                    S301.66,324.9,290.29,375z"/>
+                <circle cx="400" cy="400" r="62.5"/>
+            </svg>
+            
+            <div class="intro-content column center">
+                <div class="intro-primary column center">
+                    <h1>Welcome to the Pokédex!</h1>
+                    <h2 class="subtitle">This is the hub of all Pokémon! Enter the name or number of the Pokémon you are looking for or use the Pokemon type filter below the search bar.</h2>
+                    <input id="search-bar" type="text" placeholder="Enter pokemon name...">
+    
+                    <div id="filter-list" class="filter-list row start">
+                        <button id="filter-btn-gen" class="filter-btn" onclick="displayGenerationFilters()">Generation: All</button>
+                        <button id="filter-btn-type" class="filter-btn" onclick="displayTypeFilters()">Type: All</button>
+                    </div>
 
-            <div class="filter"></div>
-
-            <div class="filter-button row">
-                <rect id="filter-space-left" class="filter-space"></rect>
-                <h2>Filter</h2>
-                <rect id="filter-space-right" class="filter-space"></rect>
+                    <div id="filter-menu" class="filter-menu start">
+                        <div id="filter-options-gen"></div>
+                        <div id="filter-options-type"></div>
+                    </div>
+                </div>
+    
+                <div class="search-button center row">
+                    <rect id="search-space-left" class="search-space"></rect>
+                    <h3 onclick="searchPokemon()">Search</h3>
+                    <rect id="search-space-right" class="search-space"></rect>
+                </div>
             </div>
         </div>
 

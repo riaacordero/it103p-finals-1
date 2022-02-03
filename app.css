@@ -51,12 +51,13 @@ h2 {
     font-size: 3vh;
 }
 
-h3 {
+h3, button {
     font-size: 2.5vmin;
 }
 
-li {
+ul {
     list-style: none;
+    list-style-type: none;
 }
 
 
@@ -78,17 +79,33 @@ li {
 /* HOME */
 .intro {
     background-color: var(--accent-color);
-    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23555555' fill-opacity='0.7' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
-    padding: 8vw 8vw 0 8vw;
+    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%25000000' fill-opacity='0.15' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+    overflow: hidden;
+    position: relative;
 }
 
 .intro > * {
     color: white;
 }
 
+.intro > svg {
+    position: absolute;
+    fill: black;
+    opacity: .1;
+}
+
+.intro-content {
+    padding-top: 8vw;
+    z-index: 2;
+}
+
+.intro-primary {
+    margin: 0 8vw;
+}
+
 .subtitle {
     text-align: center;
-    margin: 0 8vw 4vh 8vw;
+    margin-bottom: 4vh;
 }
 
 .intro input {
@@ -98,35 +115,101 @@ li {
     border: none;
     border-radius: .5vw;
     padding: 1vw;
-    margin-bottom: 8vh;
+    margin-bottom: 2vh;
 }
 
-.filter-button {
+.intro input:focus {
+    outline: none;
+}
+
+.filter-list {
+    width: 60vw;
+    gap: 1vw;
+    margin: 0 10.8vw 8vh 10.8vw;
+}
+
+.filter-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: .5vw;
+    padding: 1vw;
+    font-weight: 700;
+}
+
+.filter-btn:hover, .filter-btn.selected {
+    color: black;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    background-color: gray;
+}
+
+.filter-btn.selected {
+    background-color: white;
+}
+
+.filter-menu > div {
+    display: none;
+    background-color: white;
+    margin: -6vh 10.8vw 8vh 10.8vw;
+    border-radius: .5vw;
+    overflow: hidden;
+}
+
+.filter-menu > div.expanded {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.filter-menu p {    
+    flex: 1;
+    padding: 1vw 1.5vw;
+    color: black;
+    text-align: center;
+}
+
+.filter-menu p:hover, .filter-menu p.selected {
+    cursor: pointer;
+}
+
+.filter-menu p:hover {
+    background-color: gray;
+}
+
+.filter-menu p.selected {
+    background-color: black;
+    color: white;
+}
+
+.search-button {
     justify-content: space-between;
     text-align: center;
     width: 100vw;
 }
 
-.filter-button h2 {
-    width: 10vw;
+.search-button h3 {
+    margin-top: -2.5vmin;
 }
 
-.filter-button h2:hover {
+.search-button h3:hover {
     cursor: pointer;
     color: black;
 }
 
-.filter-space {
+.search-space {
     width: 35vw;
     height: 0;
-    border-bottom: 2rem solid white;
+    border-bottom: 6vmin solid white;
 }
 
-#filter-space-left {
+#search-space-left {
     border-right: 4vw solid transparent;
     border-radius: 0 0 0 0;
 }
 
-#filter-space-right {
+#search-space-right {
     border-left: 4vw solid transparent;
 }

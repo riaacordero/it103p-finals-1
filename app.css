@@ -216,6 +216,20 @@ ul {
 }
 
 .pokemon-list h1 {
+    text-align: center;
     font-size: 4vw;
     color: var(--accent-color);
+}
+
+.pokemon-list-content {
+    flex-wrap: wrap;
+}
+
+.pokemon-item {
+    background-color: red;
+    max-width: 160px;
+}
+
+.pokemon-item > img {
+    object-fit: cover;
 }

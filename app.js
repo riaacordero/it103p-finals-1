@@ -136,7 +136,7 @@ async function loadHomePage() {
             "id": speciesData.id,
             "name": speciesData.name,
             "imageUrl": `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${speciesData.id}.png`,
-            "description": speciesData.flavor_text_entries[0].flavor_text,
+            "description": speciesData.flavor_text_entries[0].flavor_text.replace("\f", " "),
             "generation": speciesData.generation.name,
             "types": pokemonData.types.map(type => type.type.name)
         };
@@ -145,6 +145,32 @@ async function loadHomePage() {
     console.log("hello world");
     console.log(pokemons);
     let pokemonListContentDiv = document.getElementById("pokemon-list-content");
+    pokemons.forEach(pokemon => {
+        let pokemonImage = document.createElement("img");
+        pokemonImage.src = pokemon.imageUrl;
+
+        let pokemonName = document.createElement("h2");
+        pokemonName.innerText = pokemon.name;
+
+        let pokemonGeneration = document.createElement("p");
+        pokemonGeneration.innerText = `Generation ${gens.indexOf(pokemon.generation) + 1}`;
+
+        let pokemonTypeDiv = document.createElement("div");
+        pokemonTypeDiv.classList.add("pokemon-type-group", "row");
+        pokemon.types.forEach(type => {
+            let pokemonType = document.createElement("p");
+            pokemonType.innerText = type;
+            pokemonTypeDiv.appendChild(pokemonType);
+        });
+
+        let pokemonDescription = document.createElement("p");
+        pokemonDescription.innerText = pokemon.description;
+
+        let pokemonDiv = document.createElement("div");
+        pokemonDiv.classList.add("pokemon-item", "column");
+        pokemonDiv.append(pokemonImage, pokemonName, pokemonGeneration, pokemonTypeDiv, pokemonDescription);
+        pokemonListContentDiv.appendChild(pokemonDiv);
+    });
 }
 
 function loadPage() {

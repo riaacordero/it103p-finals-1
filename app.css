@@ -82,6 +82,7 @@ ul {
     background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%25000000' fill-opacity='0.15' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
     overflow: hidden;
     position: relative;
+    margin-bottom: 4vh;
 }
 
 .intro > * {
@@ -190,11 +191,11 @@ ul {
     width: 100vw;
 }
 
-.search-button h3 {
+.search-button a {
     margin-top: -2.5vmin;
 }
 
-.search-button h3:hover {
+.search-button a:hover {
     cursor: pointer;
     color: black;
 }
@@ -212,4 +213,9 @@ ul {
 
 #search-space-right {
     border-left: 4vw solid transparent;
+}
+
+.pokemon-list h1 {
+    font-size: 4vw;
+    color: var(--accent-color);
 }

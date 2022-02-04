@@ -23,6 +23,8 @@ let gens = [];
 let selectedGenFilters = [];
 let selectedTypeFilters = [];
 
+let pokemons = [];
+
 function displayFilters(buttonId, optionsId) {
     let filterOptionGroups = document.getElementById("filter-menu").children;
     for (let i = 0; i < filterOptionGroups.length; i++) {
@@ -34,7 +36,6 @@ function displayFilters(buttonId, optionsId) {
     }
 
     let filterButtons = document.getElementById("filter-list").children;
-    console.log(filterButtons);
     for (let i = 0; i < filterButtons.length; i++) {
         if (filterButtons[i].id === buttonId) {
             filterButtons[i].classList.toggle("selected");
@@ -68,8 +69,6 @@ function toggleSelected(itemElement, itemName, selectedArr, completeArr, buttonI
     } else {
         button.innerText = startingText + selectedArr.length + " selected";
     }
-    
-    console.log(`LENGTH OF TYPE COLORS IS ${Object.keys(gens).length}`);
 }
 
 function toggleSelectedGeneration(itemElement, itemName) {
@@ -81,14 +80,26 @@ function toggleSelectedType(itemElement, itemName) {
 }
 
 function searchPokemon() {
-
+    console.log("Hello World");
 }
 
 async function loadHomePage() {
+    // Searchbar
+
+    let searchBar = document.getElementById("search-bar");
+    searchBar.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            searchPokemon();
+        }
+    });
+
+    
+    // Filters
+
     let genResponse = await fetch("https://pokeapi.co/api/v2/generation");
     let genData = await genResponse.json();
     gens = genData.results.map(gen => gen.name);
-    console.log(gens);
 
     let genDiv = document.getElementById("filter-options-gen");
     gens.forEach((gen, index) => {
@@ -107,6 +118,33 @@ async function loadHomePage() {
         typeElement.onclick = () => toggleSelectedType(typeElement, type);
         typeDiv.appendChild(typeElement);
     }
+
+
+    console.log("start");
+
+    // Pokemon list
+    let pokemonSpeciesListResponse = await fetch("https://pokeapi.co/api/v2/pokemon-species?limit=9999/");
+    let pokemonSpeciesListData = await pokemonSpeciesListResponse.json();
+    pokemons = await Promise.all(pokemonSpeciesListData.results.map(async (species) => {
+        let speciesResponse = await fetch(species.url);
+        let speciesData = await speciesResponse.json();
+
+        let pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${speciesData.id}`);
+        let pokemonData = await pokemonResponse.json();
+
+        return {
+            "id": speciesData.id,
+            "name": speciesData.name,
+            "imageUrl": `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${speciesData.id}.png`,
+            "description": speciesData.flavor_text_entries[0].flavor_text,
+            "generation": speciesData.generation.name,
+            "types": pokemonData.types.map(type => type.type.name)
+        };
+    }));
+
+    console.log("hello world");
+    console.log(pokemons);
+    let pokemonListContentDiv = document.getElementById("pokemon-list-content");
 }
 
 function loadPage() {

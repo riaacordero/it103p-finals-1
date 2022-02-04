@@ -42,14 +42,16 @@
     
                 <div class="search-button center row">
                     <rect id="search-space-left" class="search-space"></rect>
-                    <h3 onclick="searchPokemon()">Search</h3>
+                    <a href="#pokemon-list-content" onclick="searchPokemon()">Search</a>
                     <rect id="search-space-right" class="search-space"></rect>
                 </div>
             </div>
         </div>
 
-        <div class="list">
-
+        <div class="pokemon-list">
+            <h1 id="pokemon-list-header">Pokémon List</h1>
+            <div id="pokemon-list-content" class="pokemon-list-content"></div>
+            <div id="pokemon-list-nav" class="pokemon-list-nav"></div>
         </div>
     </main>
 

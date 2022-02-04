@@ -24,6 +24,7 @@ let selectedGenFilters = [];
 let selectedTypeFilters = [];
 
 let pokemons = [];
+let pokemonsFiltered = [];
 
 function displayFilters(buttonId, optionsId) {
     let filterOptionGroups = document.getElementById("filter-menu").children;
@@ -83,6 +84,26 @@ function searchPokemon() {
     console.log("Hello World");
 }
 
+function shadeColor(color, percent) {
+    let r = parseInt(color.substring(1,3),16);
+    let g = parseInt(color.substring(3,5),16);
+    let b = parseInt(color.substring(5,7),16);
+
+    r = parseInt(r * (100 + percent) / 100);
+    g = parseInt(g * (100 + percent) / 100);
+    b = parseInt(b * (100 + percent) / 100);
+
+    r = (r<255)?r:255;  
+    g = (g<255)?g:255;  
+    b = (b<255)?b:255;  
+
+    let rr = ((r.toString(16).length==1)?"0"+r.toString(16):r.toString(16));
+    let gg = ((g.toString(16).length==1)?"0"+g.toString(16):g.toString(16));
+    let bb = ((b.toString(16).length==1)?"0"+b.toString(16):b.toString(16));
+
+    return "#"+rr+gg+bb;
+}
+
 async function loadHomePage() {
     // Searchbar
 
@@ -136,39 +157,55 @@ async function loadHomePage() {
             "id": speciesData.id,
             "name": speciesData.name,
             "imageUrl": `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${speciesData.id}.png`,
-            "description": speciesData.flavor_text_entries[0].flavor_text.replace("\f", " "),
+            "description": speciesData.flavor_text_entries.find(entry => entry.language.name === "en").flavor_text.replace("\f", " "),
             "generation": speciesData.generation.name,
             "types": pokemonData.types.map(type => type.type.name)
         };
     }));
+    pokemonsFiltered = pokemons;
 
-    console.log("hello world");
-    console.log(pokemons);
     let pokemonListContentDiv = document.getElementById("pokemon-list-content");
     pokemons.forEach(pokemon => {
         let pokemonImage = document.createElement("img");
         pokemonImage.src = pokemon.imageUrl;
 
         let pokemonName = document.createElement("h2");
-        pokemonName.innerText = pokemon.name;
-
-        let pokemonGeneration = document.createElement("p");
-        pokemonGeneration.innerText = `Generation ${gens.indexOf(pokemon.generation) + 1}`;
+        pokemonName.innerText = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
         let pokemonTypeDiv = document.createElement("div");
         pokemonTypeDiv.classList.add("pokemon-type-group", "row");
         pokemon.types.forEach(type => {
             let pokemonType = document.createElement("p");
-            pokemonType.innerText = type;
+            pokemonType.innerText = type.charAt(0).toUpperCase() + type.slice(1);
+            pokemonType.style.backgroundColor = typeColors[type];
             pokemonTypeDiv.appendChild(pokemonType);
         });
+
+        let pokemonGeneration = document.createElement("h3");
+        pokemonGeneration.innerText = `Generation ${gens.indexOf(pokemon.generation) + 1}`;
 
         let pokemonDescription = document.createElement("p");
         pokemonDescription.innerText = pokemon.description;
 
         let pokemonDiv = document.createElement("div");
+
+        let typeColor1, typeColor2;
+        if (pokemon.types.length === 2) {
+            typeColor1 = shadeColor(typeColors[pokemon.types[0]], 40);
+            typeColor2 = shadeColor(typeColors[pokemon.types[1]], 40);
+        } else {
+            typeColor1 = typeColors[pokemon.types[0]];
+            typeColor2 = shadeColor(typeColors[pokemon.types[0]], 80);
+        }
+
+        pokemonDiv.style.backgroundImage = "linear-gradient(to bottom right, " 
+        + typeColor1 
+        + ", " 
+        + typeColor2
+        + ")";
+    
         pokemonDiv.classList.add("pokemon-item", "column");
-        pokemonDiv.append(pokemonImage, pokemonName, pokemonGeneration, pokemonTypeDiv, pokemonDescription);
+        pokemonDiv.append(pokemonImage, pokemonName, pokemonTypeDiv, pokemonGeneration, pokemonDescription);
         pokemonListContentDiv.appendChild(pokemonDiv);
     });
 }

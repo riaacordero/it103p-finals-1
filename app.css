@@ -235,10 +235,14 @@ ul {
 .pokemon-item {
     flex: 0 0 20%;
     width: 160px;
-    height: 475px;
+    height: 500px;
     border-radius: 1vw;
     padding: 1vw;
     margin: 1vw;
+}
+
+.pokemon-item.hidden {
+    display: none;
 }
 
 .pokemon-item > img {

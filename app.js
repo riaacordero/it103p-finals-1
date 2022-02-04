@@ -24,7 +24,7 @@ let selectedGenFilters = [];
 let selectedTypeFilters = [];
 
 let pokemons = [];
-let pokemonsFiltered = [];
+let filteredPokemonIds = [];
 
 function displayFilters(buttonId, optionsId) {
     let filterOptionGroups = document.getElementById("filter-menu").children;
@@ -80,10 +80,6 @@ function toggleSelectedType(itemElement, itemName) {
     toggleSelected(itemElement, itemName, selectedTypeFilters, Object.keys(typeColors), "filter-btn-type", "Type: ");
 }
 
-function searchPokemon() {
-    console.log("Hello World");
-}
-
 function shadeColor(color, percent) {
     let r = parseInt(color.substring(1,3),16);
     let g = parseInt(color.substring(3,5),16);
@@ -102,6 +98,26 @@ function shadeColor(color, percent) {
     let bb = ((b.toString(16).length==1)?"0"+b.toString(16):b.toString(16));
 
     return "#"+rr+gg+bb;
+}
+
+function searchPokemon() {
+    let inputText = document.getElementById("search-bar").value;
+    filteredPokemonIds = pokemons.filter((pokemon) => 
+        selectedGenFilters.includes(pokemon.generation) &&
+        pokemon.types.every(type => selectedTypeFilters.includes(type)) &&
+        pokemon.name.toLowerCase().includes(inputText.trim().toLowerCase())).map(pokemon => pokemon.id);
+    console.log(filteredPokemonIds);
+
+    let pokemonListContentDiv = document.getElementById("pokemon-list-content");
+    let pokemonDivs = pokemonListContentDiv.querySelectorAll("[id^='pokemon-item-']");
+    pokemonDivs.forEach(pokemonDiv => {
+        let pokemonDivNum = parseInt(pokemonDiv.id.replace("pokemon-item-", ""));
+        if (filteredPokemonIds.includes(pokemonDivNum)) {
+            pokemonDiv.classList.remove("hidden");
+        } else {
+            pokemonDiv.classList.add("hidden");
+        }
+    });
 }
 
 async function loadHomePage() {
@@ -162,7 +178,7 @@ async function loadHomePage() {
             "types": pokemonData.types.map(type => type.type.name)
         };
     }));
-    pokemonsFiltered = pokemons;
+    filteredPokemonIds = pokemons.map(pokemon => pokemon.id);
 
     let pokemonListContentDiv = document.getElementById("pokemon-list-content");
     pokemons.forEach(pokemon => {
@@ -204,6 +220,7 @@ async function loadHomePage() {
         + typeColor2
         + ")";
     
+        pokemonDiv.id = "pokemon-item-" + pokemon.id;
         pokemonDiv.classList.add("pokemon-item", "column");
         pokemonDiv.append(pokemonImage, pokemonName, pokemonTypeDiv, pokemonGeneration, pokemonDescription);
         pokemonListContentDiv.appendChild(pokemonDiv);

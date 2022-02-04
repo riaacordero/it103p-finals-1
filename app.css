@@ -263,7 +263,6 @@ ul {
 
 .pokemon-type-group {
     border-radius: 0 0 1vw 1vw;
-    overflow: hidden;
     margin-bottom: 2vh;
 }
 
@@ -278,5 +277,7 @@ ul {
 }
 
 .pokemon-item > p {
+    overflow-y: auto;
     border-radius: 0 0 .5vw .5vw;
+    height: auto;
 }
